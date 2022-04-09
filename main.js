@@ -1,7 +1,7 @@
 
 function preload() {
     song1_lg = loadSound("LetGo_lg.mp3");
-    song2_in = loadSound("Infinity_in.mp3");
+    song2_in = loadSound("Harry-Potter-Theme.mp3");
 }
 
 function setup() {
@@ -28,6 +28,7 @@ song1_lg = "";
 song2_in = "";
 live_song_name = "";
 score_leftWrist = "";
+score_rightWrist = "";
 
 
 function gotPoses(results) {
@@ -44,7 +45,9 @@ function gotPoses(results) {
         console.log(" Right wrist X = " + right_wristX + " Right wrist Y = " + right_wristY);
 
         score_leftWrist = results[0].pose.keypoints[9].score;
+        score_rightWrist = results[0].pose.keypoints[10].score;
         console.log( "Score of left wrist is " + score_leftWrist);
+        console.log( "Score of right wrist is " + score_rightWrist);
     }
 }
 
@@ -74,5 +77,14 @@ function draw(){
             song1_lg.play();
         }
     }
+
+    if(score_rightWrist > 0.2) {
+        circle(right_wristX,right_wristY, 20);
+        song_lg.stop();
+        if(live_song_name == true){
+            song2_in.play();
+        }
+    }
+
 }
 
